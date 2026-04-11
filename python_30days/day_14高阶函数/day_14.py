@@ -6,4 +6,4 @@ map((lambda x : x.upper()),countries)
 filter((lambda coun : 'land' in coun),countries)
 reduce((lambda x , y:x+y),countries)
 import json
-import countries_data
+from . import countries_data
