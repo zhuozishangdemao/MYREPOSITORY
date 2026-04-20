@@ -1,4 +1,5 @@
 #linear_regression practice1
+#region
 import torch
 
 # 生成一些模拟数据
@@ -32,3 +33,22 @@ for epoch in range(100):
 
 print(f'\nPyTorch 优化结果: b = {b.item():.4f}')
 print(f'解析解（样本均值）: {x.mean().item():.4f}')
+
+# endregion
+#linear_regression practice2
+#region
+#解析解的好处在于直接得到权重的结果，但缺点是在大规模数据时对算
+#力要求很高，随机梯度下降方法可以对大规模数据处理，但最终得到的
+#是近似解，还需要保证训练次数让权重收敛
+#endregion
+#linear_regression_scratch practice
+#region
+#4计算量过大，要解决d^2个导数的计算，二阶导数可能极大或者极小解
+#方法是避免直接计算出海森矩阵本身，而是计算乘积结果
+#7可能会抛出一个小于batch_size的batch，后续处理由于除了batch的大小没有影响
+#5保证正确广播，反之生成一个label*label大小的矩阵
+#endregion
+#linear_regression_concise
+#1，由于对应的backward结果为原来的1/batch_size，学习率应当乘以batch_size
+#2.Huber损失
+#3.net.weight.grad net.bias.grad

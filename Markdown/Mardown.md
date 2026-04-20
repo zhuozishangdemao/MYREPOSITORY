@@ -139,6 +139,7 @@ This is the *[Markdown guide](https://www.markdownguide.org)*
 
 
 :smile:
+
 |a|b|
 |---|---|
 |1|2|
