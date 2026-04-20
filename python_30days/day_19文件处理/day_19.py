@@ -19,3 +19,15 @@ print('Root tag:', root.tag)
 print('Attribute:', root.attrib)
 for child in root:
     print('字段: ', child.tag)
+def coun_words (filename) :
+    if not os.path.exists(filename):
+        return -1
+    try:
+        with open(filename,'r',encoding='utf-8')as f:
+            text = f.read()
+            words = text.split()
+            return len(words)
+    except Exception as e:
+        print(f'读取文件发生错误{e}')
+        return -1
+
