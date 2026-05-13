@@ -32,6 +32,14 @@ expandtabs(num)
 find('str')#return index the str first been seen
 rfind('str')#last been seen
 format()
+```py
+template = "你好，{}！今天天气{}。"
+result = template.format("小明", "晴天")
+print(result)  # 你好，小明！今天天气晴天。
+template = "你好，{name}！今天天气{weather}。"
+result = template.format(name="小明", weather="晴天")
+print(result)  # 你好，小明！今天天气晴天。
+```
 index('sub_string')
 isalnum()
 ialapha()

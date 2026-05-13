@@ -105,6 +105,7 @@ regex_pattern = r'[Aa]pple'
     matches = re.findall(regex_pattern, txt)
     print(matches)  # ['e-mail', 'email', 'Email', 'E-mail']
     ```
+- *?:表示非贪婪匹配，尽可能少的匹配字符串
 - {digit}:表示匹配的模式长度  
 r'\d{4}':正好有四位数字
 r'\d{1,4}':1到4位数字
@@ -129,7 +130,8 @@ r'\d{1,4}':1到4位数字
 非单词字符\W:[^0-9a-zA-Z_]  
 - 字符串边界设置   
 1. ^:匹配字符串的开头，指的是待匹配的字符串的行的开头，默认条件下只考虑第一行的开头，通过re.M可以匹配多行的开头
-2. \$:匹配字符串的结尾
+2. \$:匹配字符串的结尾，匹配一个字符。
+ $:位置断言，本身不匹配任何字符串，表示位置字符串的末尾
 
 3. \\b:匹配单词边界
     ```py
@@ -152,7 +154,8 @@ r'\d{1,4}':1到4位数字
 
 ### match.group
 
-提取怕匹配的内容  
+提取捕获组的内容
+捕获组需要用()额外标出才能提取  
 方式：gorup(n)返回第n个捕获组的内容，group() or gourp(0)返回整个匹配的字符串  
 
  ```py
@@ -168,5 +171,49 @@ r'\d{1,4}':1到4位数字
 ### (?:...)非捕获组
 括号内的表达式整体分组，但是不占用捕获组group的编号
 
-###  (?=...)正向前瞻断言
-要求当前位置之后的字符串必须匹配...中的模式，但不消耗位置
+###  (?=...)断言
+用于指定一个位置必须满足的条件，但不会消耗字符
+#### 前瞻
+正向前瞻断言：匹配到一个位置，该位置的后面必须能匹配到pattern  
+语法：(?=pattern)
+```py
+text = "Rate: 25%, Increase: 10% annually"
+pattern = r'\d+(?=%)'  # 数字后面必须是 %
+matches = re.findall(pattern, text)
+print(matches)  # 输出: ['25', '10']
+```
+负向前瞻断言：匹配到一个位置，该位置的后面不能匹配pattern  
+语法：(?!pattern)
+```py
+text = "Rate: 25%, Quantity: 100, Discount: 10%"
+pattern = r'\b\d+\b(?!%)'  # 数字后面不能是 %
+matches = re.findall(pattern, text)
+print(matches)  # 输出: ['100']
+```
+#### 回顾
+正向回顾断言：匹配一个位置，该位置的前面要匹配pattern  
+语法：(?<=pattern)
+```py
+import re
+
+text = "Price: $100, Discount: €50"
+pattern = r'(?<=\$)\d+'  # 前面必须有 $，然后匹配数字
+matches = re.findall(pattern, text)
+print(matches)  # 输出: ['100']
+```
+负向回顾断言：匹配一个位置该位置的前面不能匹配pattern
+语法：(?<!pattern)
+```py
+text = "Price: $100, Code: 200, Discount: €50"
+pattern = r'(?<!\$)\b\d+\b'  # 数字前面不能是 $
+matches = re.findall(pattern, text)
+print(matches)  # 输出: ['200', '50']
+```
+
+### re.compile
+
+### p.sub(repel,string,count)
+返回一个新的字符串，匹配到p的位置进行repel操作  
+repel可以为：  
+function：传入匹配位置的对象match，按照函数返回结果替换  
+string：直接替换匹配的位置
