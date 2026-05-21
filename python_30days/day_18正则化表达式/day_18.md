@@ -60,7 +60,7 @@ re.split('\n',txt)#使用\n分割行尾符号
 实际例子：不区分大小写的apple  
 regex_pattern = r'[Aa]pple'  
 使用标志re.I  
-- []:一组字符
+- []:一组字符(类似于从单个到一组，也就用数组的符号标识合理)
     * [a-c]:a or b or c
     * [a-z]:a or b or c..or z
     * [A-Z]:A or B or C..or Z
@@ -125,6 +125,8 @@ r'\d{1,4}':1到4位数字
     matches = re.findall(regex_pattern, txt)
     print(matches)  # ['6,', '2019', '8,', '2021']
     ```
+    ^要整体包含再[]内部  
+    例如：\([^)]+\)表示匹配括号内的内容，其中内容中不包含右括号
 - \w和\W:匹配单词字符和非单词字符  
 单词字符\w:[0-9a-zA-Z_]  
 非单词字符\W:[^0-9a-zA-Z_]  
@@ -217,3 +219,5 @@ print(matches)  # 输出: ['200', '50']
 repel可以为：  
 function：传入匹配位置的对象match，按照函数返回结果替换  
 string：直接替换匹配的位置
+
+### 可选的非捕获组(?:...)?
