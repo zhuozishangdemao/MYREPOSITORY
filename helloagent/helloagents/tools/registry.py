@@ -56,6 +56,7 @@ class ToolRegistry:
             deescription:工具描述
             func:工具函数，接受字符串参数，返回字符串结果
         """
+        #通过getattr(self.tool_registry,'_funuctions')可以提取由函数定义的工具
         if name in self._functions:
             print(f'警告，工具{name}已存在，将被覆盖')
         self._functions[name]={

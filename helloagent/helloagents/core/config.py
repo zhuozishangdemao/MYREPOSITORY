@@ -18,7 +18,7 @@ class Config(BaseModel):
     max_history_length :int = 100
     
     @classmethod
-    def from_env(cls)->"config":#以类作为变量，返回config实例，这里会对"config"自动解析
+    def from_env(cls)->"Config":#以类作为变量，返回config实例，这里会对"config"自动解析
         """从环境变量创建配置"""
         return cls(
             debug=os.getenv("DEBUG","false").lower =="true",
